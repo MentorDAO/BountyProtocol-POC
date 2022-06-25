@@ -39,7 +39,7 @@ contract HubUpgradable is
     address public beaconTeamDAO;
 
     //Deployed Contracts
-    mapping(address => bool) internal _TeamDAOs;
+    mapping(address => bool) internal _teamDAOs;
     mapping(address => address) internal _projects;
 
     //--- Functions
@@ -55,9 +55,9 @@ contract HubUpgradable is
 
     /// Initializer
     function initialize (
-        address TeamDAOContract, 
+        address TeamDAOContract,
         address projectContract,
-        string uri_ 
+        string calldata uri_ 
     ) public initializer {
         //Set Association Repo Address
         // _setRepo(openRepo);
@@ -114,16 +114,13 @@ contract HubUpgradable is
         //Event
         emit ContractCreated("TeamDAO", address(newProxy));
         //Remember
-        _TeamDAOs[address(newProxy)] = true;
+        _teamDAOs[address(newProxy)] = true;
         //Return
         return address(newProxy);
     }
 
     /// Deploy a new Project Contract
     function projectMake(string calldata name_, string calldata uri_) external override returns (address) {
-        //Validate Caller Permissions (A DAOs)
-        require(_TeamDAOs[_msgSender()], "UNAUTHORIZED: Valid DAOs Only");
-
         //Deploy
         BeaconProxy newProxy = new BeaconProxy(
             beaconProject,
@@ -131,8 +128,7 @@ contract HubUpgradable is
                 IProject( payable(address(0)) ).initialize.selector,
                 address(this),   //Hub
                 name_,          //Name
-                uri_,
-                _msgSender()    //Birth Parent (Container)
+                uri_
             )
         );
         //Event
