@@ -61,8 +61,7 @@ contract HubUpgradable is
     /// Initializer
     function initialize (
         address TeamDAOContract,
-        address projectContract,
-        string calldata uri_ 
+        address projectContract
     ) public initializer {
         //Set Association Repo Address
         // _setRepo(openRepo);
@@ -70,7 +69,7 @@ contract HubUpgradable is
         //Initializers
         __UUPSUpgradeable_init();
         //Set Contract URI
-        _setContractURI(uri_);
+        // _setContractURI(uri_);
         //Init DAO Contract Beacon
         UpgradeableBeacon _beaconM = new UpgradeableBeacon(TeamDAOContract);
         beaconTeamDAO = address(_beaconM);

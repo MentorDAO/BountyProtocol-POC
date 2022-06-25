@@ -28,12 +28,16 @@ describe("Mentor Protocol", function () {
 
   before(async function () {
 
+    //--- Deploy Assoc Repo
+    this.teamDAO = await ethers.getContractFactory("TeamDAO").then(res => res.deploy());
+    this.project = await ethers.getContractFactory("ProjectUpgradable").then(res => res.deploy());
+
     //--- Deploy Hub Upgradable (UUDP)
     hubContract = await ethers.getContractFactory("HubUpgradable").then(Contract => 
       upgrades.deployProxy(Contract,
         [
-          this.openRepo.address,
-          configContract.address, 
+          this.teamDAO.address,
+          this.project.address, 
         ],{
         // https://docs.openzeppelin.com/upgrades-plugins/1.x/api-hardhat-upgrades#common-options
         kind: "uups",
@@ -41,6 +45,7 @@ describe("Mentor Protocol", function () {
       })
     );
     // await hubContract.deployed();
+      console.log("Deployed HUB: ", hubContract.address);
 
     //Set Avatar Contract to Hub
     // hubContract.setAssoc("history", actionContract.address);
@@ -57,10 +62,30 @@ describe("Mentor Protocol", function () {
 
   describe("Hub", function () {
 
-    // it("Should be owned by deployer", async function () {
-    //   expect(await configContract.owner()).to.equal(await owner.getAddress());
-    // });
+    it("Should be owned by deployer", async function () {
+      expect(await hubContract.owner()).to.equal(await owner.getAddress());
+    });
 
+
+    /**
+     * Team DAO Contract
+     */
+    describe("TeamDAO", function () {
+      
+      before(async function () {
+        //Simulate to Get New teamDAO Address
+        let MDAOAddr = await hubContract.callStatic.teamDAOMake("Test DAO", test_uri);
+        //Create New teamDAO
+        let tx = await hubContract.teamDAOMake("Test DAO", test_uri);
+        //Expect Valid Address
+        expect(MDAOAddr).to.be.properAddress;
+        //Expect Case Created Event
+        await expect(tx).to.emit(hubContract, 'ContractCreated').withArgs("TeamDAO", MDAOAddr);
+        //Init teamDAO Contract Object
+        TeamDAOContract = await ethers.getContractFactory("TeamDAO").then(res => res.attach(MDAOAddr));
+        this.TeamDAOContract = TeamDAOContract;
+      });
+
+    });
   });
-
 });
