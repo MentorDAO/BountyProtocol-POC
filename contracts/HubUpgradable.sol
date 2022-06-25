@@ -18,10 +18,6 @@ import "./interfaces/IProject.sol";
 import "./interfaces/ITeamDAO.sol";
 import "./abstract/ContractBase.sol";
 
-//case
-//jurisdiction
-
-
 /**
  * Hub Contract
  */
@@ -104,7 +100,7 @@ contract HubUpgradable is
     //--- Factory 
 
     /// Deploy a new DAO Contract
-    function TeamDAOMake(string calldata name_, string calldata uri_) external override returns (address) {
+    function teamDAOMake(string calldata name_, string calldata uri_) external override returns (address) {
         //Deploy
         BeaconProxy newProxy = new BeaconProxy(
             beaconTeamDAO,
@@ -125,8 +121,8 @@ contract HubUpgradable is
 
     /// Deploy a new Project Contract
     function projectMake(string calldata name_, string calldata uri_) external override returns (address) {
-        //Validate Caller Permissions (A Jurisdiction)
-        require(_TeamDAOs[_msgSender()], "UNAUTHORIZED: Valid Jurisdiction Only");
+        //Validate Caller Permissions (A DAOs)
+        require(_TeamDAOs[_msgSender()], "UNAUTHORIZED: Valid DAOs Only");
 
         //Deploy
         BeaconProxy newProxy = new BeaconProxy(
@@ -145,10 +141,9 @@ contract HubUpgradable is
         _projects[address(newProxy)] = _msgSender();
         //Return
         return address(newProxy);
-
     }
 
-    //-- Upgrades
+    //-- Updates
 
     /// Upgrade Contract Implementation
     function upgradeMentorImplementation(address newImplementation) public onlyOwner {
