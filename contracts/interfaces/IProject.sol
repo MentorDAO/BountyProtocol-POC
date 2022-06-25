@@ -4,8 +4,11 @@ pragma solidity 0.8.15;
 interface IProject {
 
     /// Initialize
-    function initialize(address hub, string calldata name_, string calldata uri_) external;
+    function initialize(address hub, string calldata name_, string calldata uri_) external payable;
 
+    /// Arbitrary contract symbol
+    function symbol() external view returns (string memory);
+        
     /// Apply
 
     /// Accept Application

@@ -50,6 +50,11 @@ contract HubUpgradable is
             || super.supportsInterface(interfaceId);
     }
 
+    /// Inherit owner from Protocol's config
+    function owner() public view override(IHub, OwnableUpgradeable) returns (address) {
+        return OwnableUpgradeable.owner();
+    }
+
     /// Upgrade Permissions
     function _authorizeUpgrade(address newImplementation) internal onlyOwner override { }
 
