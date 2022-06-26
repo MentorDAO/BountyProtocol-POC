@@ -12,10 +12,10 @@ interface IHub {
     function owner() external view returns (address);
 
     /// Deploy a new DAO Contract
-    function teamDAOMake(string calldata name_, string calldata uri_) external returns (address);
+    function teamDAOMake(string calldata name_, string calldata uri_) external payable returns (address);
 
     /// Deploy a new Project Contract
-    function projectMake(string calldata name_, string calldata uri_) external returns (address);
+    function projectMake(string calldata name_, string calldata uri_) external payable returns (address);
 
     //--- Events
 

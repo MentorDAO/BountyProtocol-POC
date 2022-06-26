@@ -43,6 +43,11 @@ contract HubUpgradable is
     mapping(address => address) internal _projects;
 
     //--- Functions
+
+    // function getTeamDAOs() public view returns(address[]){
+    //     address[] teamContracts;
+    //     // for(let) //TODO...
+    // }
  
     /// ERC165 - Supported Interfaces
     function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
@@ -102,7 +107,7 @@ contract HubUpgradable is
     //--- Factory 
 
     /// Deploy a new DAO Contract
-    function teamDAOMake(string calldata name_, string calldata uri_) external override returns (address) {
+    function teamDAOMake(string calldata name_, string calldata uri_) external override payable returns (address) {
         //Deploy
         BeaconProxy newProxy = new BeaconProxy(
             beaconTeamDAO,
@@ -122,7 +127,7 @@ contract HubUpgradable is
     }
 
     /// Deploy a new Project Contract
-    function projectMake(string calldata name_, string calldata uri_) external override returns (address) {
+    function projectMake(string calldata name_, string calldata uri_) external override payable returns (address) {
         //Deploy
         BeaconProxy newProxy = new BeaconProxy(
             beaconProject,

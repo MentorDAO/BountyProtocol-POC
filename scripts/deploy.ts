@@ -33,6 +33,7 @@ async function main() {
   // let teamDAOContract = {address: "0x9D4F0134898b8d1dA1Da2bc6908E57d0Ded6aC4e"};
   // let projectContract = {address: "0xF31D0B55Aff365E68535C6B83b4C4D3C72F613b7"};
   //Hub: 0x402d30e7dba9be455203a9d02bab122bc5f59549
+  //Hub IMPL: 0xb36D35f902DEaE9af4a996735a9b4F8dE64a7309
   
   console.log("Deployed TeamDAO Contract ", teamDAOContract.address);
   console.log("Deployed Project Contract ", projectContract.address);
