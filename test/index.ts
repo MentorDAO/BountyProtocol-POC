@@ -86,6 +86,40 @@ describe("Mentor Protocol", function () {
         this.TeamDAOContract = TeamDAOContract;
       });
 
+      
+      it("Should be owned by deployer", async function () {
+        expect(await hubContract.owner()).to.equal(await owner.getAddress());
+      });
+
     });
+
+    
+    /**
+     * Project Contract
+     */
+     describe("Project", function () {
+      
+      before(async function () {
+        //Simulate to Get New teamDAO Address
+        let ProjectAddr = await hubContract.callStatic.projectMake("Test Project", test_uri);
+        //Create New teamDAO
+        let tx = await hubContract.projectMake("Test Project", test_uri);
+        //Expect Valid Address
+        expect(ProjectAddr).to.be.properAddress;
+        //Expect Case Created Event
+        await expect(tx).to.emit(hubContract, 'ContractCreated').withArgs("Project", ProjectAddr);
+        //Init teamDAO Contract Object
+        projectContract = await ethers.getContractFactory("ProjectUpgradable").then(res => res.attach(ProjectAddr));
+        this.projectContract = projectContract;
+      });
+
+      
+      it("Should be owned by deployer", async function () {
+        expect(await projectContract.owner()).to.equal(await owner.getAddress());
+      });
+
+    });
+
+
   });
 });

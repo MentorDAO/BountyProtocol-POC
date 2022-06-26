@@ -63,10 +63,8 @@ contract HubUpgradable is
         address TeamDAOContract,
         address projectContract
     ) public initializer {
-        //Set Association Repo Address
-        // _setRepo(openRepo);
-
         //Initializers
+        __Ownable_init();
         __UUPSUpgradeable_init();
         //Set Contract URI
         // _setContractURI(uri_);
