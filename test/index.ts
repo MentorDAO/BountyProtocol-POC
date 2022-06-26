@@ -28,7 +28,7 @@ describe("Mentor Protocol", function () {
 
   before(async function () {
 
-    //--- Deploy Assoc Repo
+    //--- Delpoy Contracts
     this.teamDAO = await ethers.getContractFactory("TeamDAO").then(res => res.deploy());
     this.project = await ethers.getContractFactory("ProjectUpgradable").then(res => res.deploy());
 
@@ -45,7 +45,7 @@ describe("Mentor Protocol", function () {
       })
     );
     // await hubContract.deployed();
-      console.log("Deployed HUB: ", hubContract.address);
+    console.log("Deployed HUB: ", hubContract.address);
 
     //Set Avatar Contract to Hub
     // hubContract.setAssoc("history", actionContract.address);
@@ -86,7 +86,6 @@ describe("Mentor Protocol", function () {
         this.TeamDAOContract = TeamDAOContract;
       });
 
-      
       it("Should be owned by deployer", async function () {
         expect(await hubContract.owner()).to.equal(await owner.getAddress());
       });
@@ -113,7 +112,6 @@ describe("Mentor Protocol", function () {
         this.projectContract = projectContract;
       });
 
-      
       it("Should be owned by deployer", async function () {
         expect(await projectContract.owner()).to.equal(await owner.getAddress());
       });
