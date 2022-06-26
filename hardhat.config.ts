@@ -76,6 +76,13 @@ const config = {
       url: "https://testnet.aurora.dev/",
       accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
+
+    
+    optimism: {
+      url: "https://opt-kovan.g.alchemy.com/v2/XCPNeMpKeD-NzDvWvRoqMVrsr2ttx4W9",
+      accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    },
+
   },
   gasReporter: {
     enabled: process.env.REPORT_GAS !== undefined,
@@ -85,6 +92,7 @@ const config = {
     // apiKey: process.env.ETHERSCAN_API_KEY,
     apiKey: {
       rinkeby: process.env.ETHERSCAN_API_KEY,
+      polygonMumbai: process.env.ETHERSCAN_API_KEY_POLY,
     }    
   },
 
