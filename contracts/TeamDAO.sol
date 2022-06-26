@@ -95,7 +95,7 @@ contract TeamDAO is
     }
     
     /// Check if user is Admin
-    function isAdmin(address walletAddr) public returns(bool) {
+    function isAdmin(address walletAddr) public view returns(bool) {
         //Owner of first token
         return (ownerOf(1) == walletAddr);
     }
