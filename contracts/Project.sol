@@ -65,11 +65,9 @@ contract ProjectUpgradable is
     function _authorizeUpgrade(address newImplementation) internal onlyOwner override {}
 
 
-        /// Requirements(URI), Payment
+    /// TODO: Deposit
 
-    /// Deposit
-
-    /// Withdraw
+    /// TODO: Withdraw
 
 
 }
