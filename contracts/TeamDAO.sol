@@ -18,6 +18,9 @@ import "./abstract/CommonUpgradable.sol";
 
 /**
  * @title Team DAO
+ * This would probably ideally be an ERC1155
+ * 
+ * 
  */
 contract TeamDAO is 
         ITeamDAO,
@@ -67,8 +70,7 @@ contract TeamDAO is
         __UUPSUpgradeable_init();
 
         //Mint First Token to Creator (Admin Token)
-        _tokenIds.increment();
-        _safeMint(tx.origin, _tokenIds.current());
+        _safeMint(tx.origin);
     }
     
     /** 
@@ -130,10 +132,14 @@ contract TeamDAO is
     /// Accept Join Request
     function acceptJoin(address aplicantAddress) external{
         require(isAdmin(_msgSender()), "ADMIN_ONLY");
-        _tokenIds.increment();
-        _safeMint(aplicantAddress, _tokenIds.current());
+        _safeMint(aplicantAddress);
         // _setTokenURI(tokenId, uri);
     }
 
+    /// Mint Wrapper Function
+    function _safeMint(address to) internal {
+        _tokenIds.increment();
+        _safeMint(tx.origin, _tokenIds.current());
+    }
 }
 
