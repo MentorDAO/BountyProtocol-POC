@@ -92,6 +92,20 @@ describe("Mentor Protocol", function () {
 
     });
 
+    /*
+    - contract uri (group and mentor data) 
+    - Mint first token to owner
+    - First token owner controls the contract
+    - Can Mint
+    - Randoms can request mint (event) w/uri
+    - (stats)
+
+    Project contract 
+    - payment escrow (offer)
+    - Split (profits)
+    - Deliveries 
+    */
+
     
     /**
      * Project Contract
