@@ -77,17 +77,15 @@ const config = {
       accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
 
-    
-    optimism_kovan: {
-      url: "https://opt-kovan.g.alchemy.com/v2/XCPNeMpKeD-NzDvWvRoqMVrsr2ttx4W9",
-      accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-    },
-
     optimism: {
-      url: "https://opt-mainnet.g.alchemy.com/v2/erGEFZldp30dqPefKMFC-vfRfXASnvG9",
+      url: process.env.ALCHEMY_OP_URL || "",
       accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
-
+    optimism_kovan: {
+      url: process.env.ALCHEMY_OP_TEST_URL || "",
+      accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    },
+    
   },
   gasReporter: {
     enabled: process.env.REPORT_GAS !== undefined,
