@@ -6,13 +6,16 @@
 import { Contract } from "ethers";
 import { ethers } from "hardhat";
 const {  upgrades } = require("hardhat");
+const hre = require("hardhat");
+const chain = hre.hardhatArguments.network;
 
 let hubContract: Contract;
 let DAOContract: Contract;
 let ProjectContract: Contract;
 
 async function main() {
-
+  console.log("Deploying to Chain: ", chain);
+  
   let hubContract;
 
   //--- Delpoy Contracts
