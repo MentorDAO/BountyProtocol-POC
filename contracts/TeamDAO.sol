@@ -36,6 +36,8 @@ contract TeamDAO is
     
     //--- Storage
 
+    uint256 maxTeamSize;
+
     using CountersUpgradeable for CountersUpgradeable.Counter;
     CountersUpgradeable.Counter private _tokenIds;
     
@@ -138,6 +140,7 @@ contract TeamDAO is
 
     /// Mint Wrapper Function
     function _safeMint(address to) internal {
+        if(maxTeamSize != 0) require(_tokenIds.current() < maxTeamSize, "FULL_CAPACITY");
         _tokenIds.increment();
         _safeMint(tx.origin, _tokenIds.current());
     }
